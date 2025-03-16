@@ -51,6 +51,7 @@ while True:
             elif button_next.collidepoint(event.pos):
                 surf2 = font2.render(letter, True, "black")
                 surf_word = font3.render(word, True, "black")
+                word += letter
 
     draw_button(button1, surf)
     draw_button(button_next, surf3)

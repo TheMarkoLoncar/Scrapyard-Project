@@ -29,6 +29,7 @@ surf2 = font1.render(letter, True, "black")
 surf_letter_saved = font2.render(text_letter_saved, True, "black")
 surf_error = font3.render(text_error, True, "black")
 surf3 = font1.render("NEXT", True, "black")
+surf_word = font3.render(word, True, "black")
 
 background_sprite = pygame.image.load("./assets/BlankSlot.png")
 
