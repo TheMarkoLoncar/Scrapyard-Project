@@ -1,10 +1,11 @@
 import socket
 import threading
+import re
 
 s = socket.socket()
 print("socket successfully created")
 
-port = 12345
+port = int(input("Enter a port: "))
 
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind(("localhost", port))
@@ -20,9 +21,12 @@ def close_connection(connection):
     connection.close()
 
 
-def distribute_message(message):
+def distribute_message(message, sender):
     for connection in connections:
         try:
+            if connection == sender:
+                continue
+            
             connection.send(message.encode())
         except Exception as e:
             close_connection(connection)
@@ -32,8 +36,12 @@ def connection_handler(connection):
     while True:
         try:
             message = connection.recv(1024).decode()
+            if not re.search("[-./]+", message):
+                connection.send("Messages can only contain morse code!".encode())
+                continue
+
             print(f"Message from connection {connection}:", message)
-            distribute_message(message)
+            distribute_message(message, connection)
         except Exception as e:
             close_connection(connection)
 
