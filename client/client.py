@@ -34,7 +34,7 @@ letters = {
     "y": "-.--",
     "z": "--..",
     " ": "/",
-    "": ""
+    "": "",
 }
 
 
@@ -54,8 +54,8 @@ stream = pa.open(
     rate=wf.getframerate(),
     output=True,
     stream_callback=callback,
+    start=False
 )
-stream.stop_stream()
 
 
 def toggle_audio():
@@ -73,10 +73,7 @@ def get_random_letter():
 
 
 def convert_to_morse_code(message):
-    return "".join(
-        letters[character] + " "
-        for character in message.lower()
-    )
+    return "".join(letters[character] + " " for character in message.lower())
 
 
 DIT_MS = 100
@@ -87,15 +84,17 @@ SPACE_MS = DIT_MS * 7
 def play_morse_code(message):
     global playing
 
+    toggle_audio()
+    time.sleep(1.798)
+    toggle_audio()
+
     for character in message:
         if character == " ":
             continue
 
         play = False if character == "/" else True
         play = play or not play and playing
-        play_time = (
-            DIT_MS if character == "." else DAH_MS if character == "-" else 0
-        )
+        play_time = DIT_MS if character == "." else DAH_MS if character == "-" else 0
         sleep_time = SPACE_MS if character == "/" else DAH_MS
 
         if play:
@@ -109,7 +108,10 @@ def play_morse_code(message):
         toggle_audio()
 
 
-def recieved_message_handler(s):
+s = socket.socket()
+
+
+def recieved_message_handler():
     while True:
         message = s.recv(1024).decode()
 
@@ -118,9 +120,9 @@ def recieved_message_handler(s):
 
 
 def setup_recieving():
-    s = socket.socket()
-    s.connect(("localhost", int(input("Enter a port: "))))
+    global s
+    s.connect(("localhost", 6969))
 
     recieving_thread = threading.Thread(
-        target=recieved_message_handler, args=(s,)
+        target=recieved_message_handler
     ).start()
