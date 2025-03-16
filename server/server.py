@@ -42,7 +42,7 @@ def main():
     global s
 
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(("172.20.10.3", 6969))
+    s.bind(("localhost", 6969))
 
     s.listen(5)
     print("socket is listening", s.getsockname())
