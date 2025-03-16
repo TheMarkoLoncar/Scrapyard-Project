@@ -2,6 +2,7 @@ import pygame
 import random
 import client
 import string
+import time
 
 pygame.init()
 
@@ -29,10 +30,29 @@ dot_img = pygame.image.load("../assets/ResultSlotDot.png")
 space_img = pygame.image.load("../assets/ResultSlotSpace.png")
 slash_img = pygame.image.load("../assets/ResultSlotSlash.png")
 
+cycle_dash_img = pygame.image.load("../assets/CycleSlotDash.png")
+cycle_dot_img = pygame.image.load("../assets/CycleSlotDot.png")
+cycle_space_img = pygame.image.load("../assets/CycleSlotSpace.png")
+cycle_slash_img = pygame.image.load("../assets/CycleSlotSlash.png")
+
 def draw_button(button, surf):
     pygame.draw.rect(screen, (110, 110, 110), button)
     screen.blit(surf, (button.x + (padding / 2), button.y + (padding / 2)))
 
+def update_letter(letter, cycle):
+    for i in range(4):
+        mc_letter = client.letters[letter]
+        pos = (90 * i + 79, 287)
+        if i < len(mc_letter):
+            match(mc_letter[i]):
+                case "-":
+                    screen.blit(cycle_dash_img if cycle else dash_img, pos)
+                case ".":
+                    screen.blit(cycle_dot_img if cycle else dot_img, pos)
+                case "/":
+                    screen.blit(cycle_slash_img if cycle else slash_img, pos)
+                case " ":
+                    screen.blit(cycle_space_img if cycle else space_img, pos)
 letter = ""
 while True:
     screen.fill((255, 255, 255))
@@ -45,6 +65,10 @@ while True:
             
         if event.type == pygame.MOUSEBUTTONDOWN:
             if button1.collidepoint(event.pos):
+                for i in range(4):
+                    update_letter(random.choice(string.ascii_lowercase), True)
+                    time.sleep(1 / (4 - i))
+
                 letter = random.choice(string.ascii_lowercase + " ")
             elif button_next.collidepoint(event.pos):
                 if letter == "":
@@ -62,18 +86,6 @@ while True:
     draw_button(button_next, surf2)
     screen.blit(surf_word, (10, 10))
 
-    for i in range(4):
-        mc_letter = client.letters[letter]
-        pos = (90 * i + 79, 287)
-        if i < len(mc_letter):
-            match(mc_letter[i]):
-                case "-":
-                    screen.blit(dash_img, pos)
-                case ".":
-                    screen.blit(dot_img, pos)
-                case "/":
-                    screen.blit(slash_img, pos)
-        else:
-            screen.blit(space_img, pos)
+    update_letter(letter, False)
 
     pygame.display.update()
