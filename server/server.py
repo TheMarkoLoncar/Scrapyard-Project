@@ -2,18 +2,6 @@ import socket
 import threading
 import re
 
-s = socket.socket()
-print("socket successfully created")
-
-port = int(input("Enter a port: "))
-
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(("localhost", port))
-print(f"socket binded to", port)
-
-s.listen(5)
-print("socket is listening")
-
 connections = []
 
 
@@ -26,7 +14,7 @@ def distribute_message(message, sender):
         try:
             if connection == sender:
                 continue
-            
+
             connection.send(message.encode())
         except Exception as e:
             close_connection(connection)
@@ -37,7 +25,9 @@ def connection_handler(connection):
         try:
             message = connection.recv(1024).decode()
             if not re.search("[-./]+", message):
-                connection.send("Messages can only contain morse code!".encode())
+                connection.send(
+                    "Messages can only contain morse code!".encode()
+                )
                 continue
 
             print(f"Message from connection {connection}:", message)
@@ -47,6 +37,18 @@ def connection_handler(connection):
 
 
 def main():
+    s = socket.socket()
+    print("socket successfully created")
+
+    port = int(input("Enter a port: "))
+
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(("localhost", port))
+    print(f"socket binded to", port)
+
+    s.listen(5)
+    print("socket is listening")
+
     while True:
         c, addr = s.accept()
         connections.append(c)
@@ -55,9 +57,6 @@ def main():
         connection_thread = threading.Thread(
             target=connection_handler, args=(c,)
         ).start()
-
-        for connection in connections:
-            connection.send(f"New connection from {addr}\n".encode())
 
 
 if __name__ == "__main__":
