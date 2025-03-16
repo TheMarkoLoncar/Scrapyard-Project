@@ -53,7 +53,7 @@ while True:
     
     for i in range(4):
         mc_letter = client.letters[letter]
-        pos = (90 * i + 79, 257)
+        pos = (90 * i + (78 if i == 1 else 79), 257)
         if i < len(mc_letter):
             match(mc_letter[i]):
                 case "-":
