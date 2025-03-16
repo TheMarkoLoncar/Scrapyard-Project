@@ -35,17 +35,16 @@ def connection_handler(connection):
         except Exception as e:
             close_connection(connection)
 
-s = socket.socket()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print("socket successfully created")
 
 def main():
     global s
 
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(("localhost", 6969))
+    s.bind(("10.17.192.55", 6969))
 
     s.listen(5)
-    print("socket is listening")
+    print("socket is listening", s.getsockname())
 
     while True:
         c, addr = s.accept()

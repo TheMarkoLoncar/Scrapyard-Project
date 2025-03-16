@@ -84,10 +84,6 @@ SPACE_MS = DIT_MS * 7
 def play_morse_code(message):
     global playing
 
-    toggle_audio()
-    time.sleep(1.798)
-    toggle_audio()
-
     for character in message:
         if character == " ":
             continue
@@ -108,7 +104,7 @@ def play_morse_code(message):
         toggle_audio()
 
 
-s = socket.socket()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
 def recieved_message_handler():
