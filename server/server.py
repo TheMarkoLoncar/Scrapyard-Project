@@ -35,16 +35,14 @@ def connection_handler(connection):
         except Exception as e:
             close_connection(connection)
 
+s = socket.socket()
+print("socket successfully created")
 
 def main():
-    s = socket.socket()
-    print("socket successfully created")
-
-    port = int(input("Enter a port: "))
+    global s
 
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(("localhost", port))
-    print(f"socket binded to", port)
+    s.bind(("localhost", 6969))
 
     s.listen(5)
     print("socket is listening")
