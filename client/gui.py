@@ -51,7 +51,7 @@ while True:
     draw_button(button_next, surf2)
     
     for i in range(4):
-        pos = (100 * i + 62, 250)
+        pos = (90 * i + 79, 257)
         if i < len(letter):
             match(letter[i]):
                 case "-":
