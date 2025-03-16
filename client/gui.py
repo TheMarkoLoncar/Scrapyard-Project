@@ -1,6 +1,7 @@
 import pygame
 import random
 import client
+import string
 
 pygame.init()
 
@@ -43,7 +44,7 @@ while True:
             
         if event.type == pygame.MOUSEBUTTONDOWN:
             if button1.collidepoint(event.pos):
-                letter = random.choice(list(client.letters.values()))
+                letter = random.choice(string.ascii_lowercase + " ")
             elif button_next.collidepoint(event.pos):
                 pass
 
@@ -51,9 +52,10 @@ while True:
     draw_button(button_next, surf2)
     
     for i in range(4):
+        mc_letter = client.letters[letter]
         pos = (90 * i + 79, 257)
-        if i < len(letter):
-            match(letter[i]):
+        if i < len(mc_letter):
+            match(mc_letter[i]):
                 case "-":
                     screen.blit(dash_img, pos)
                 case ".":
