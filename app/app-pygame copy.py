@@ -68,3 +68,4 @@ while True:
     draw_button(button_next, surf3)
 
     pygame.display.update()
+

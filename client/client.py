@@ -11,7 +11,7 @@ letters = {
     "b": "-...",
     "c": "-.-.",
     "d": "-..",
-    "e": ". ",
+    "e": ".",
     "f": "..-.",
     "g": "--.",
     "h": "....",
@@ -73,7 +73,7 @@ def get_random_letter():
 
 def convert_to_morse_code(message):
     return "".join(
-        letters[character] + (" " if character != " " else "")
+        letters[character] + " "
         for character in message.lower()
     )
 
