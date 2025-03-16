@@ -37,38 +37,44 @@ slash_img = pygame.image.load("../assets/ResultSlotSlash.png")
 def draw_button(button, texture):
     screen.blit(texture, (button.x + (padding / 2), button.y + (padding / 2)))
 
-letter = ""
-while True:
-    screen.fill((255, 255, 255))
+def main():
+    client.setup_recieving()
     
-    screen.blit(background_img, (0, -25))
+    letter = ""
+    while True:
+        screen.fill((255, 255, 255))
     
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
+        screen.blit(background_img, (0, -25))
+    
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
             
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if button_spin.collidepoint(event.pos):
-                letter = random.choice(string.ascii_lowercase + " ")
-            elif button_next.collidepoint(event.pos):
-                pass
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if button_spin.collidepoint(event.pos):
+                    letter = random.choice(string.ascii_lowercase + " ")
+                elif button_next.collidepoint(event.pos):
+                    pass
 
-    draw_button(button_spin, spin_img)
-    draw_button(button_next, next_img)
+        draw_button(button_spin, spin_img)
+        draw_button(button_next, next_img)
     
-    for i in range(4):
-        mc_letter = client.letters[letter]
-        pos = (90 * i + (78 if i == 1 else 79), 232)
-        if i < len(mc_letter):
-            match(mc_letter[i]):
-                case "-":
-                    screen.blit(dash_img, pos)
-                case ".":
-                    screen.blit(dot_img, pos)
-                case "/":
-                    screen.blit(slash_img, pos)
-        else:
-            screen.blit(space_img, pos)
+        for i in range(4):
+            mc_letter = client.letters[letter]
+            pos = (90 * i + (78 if i == 1 else 79), 232)
+            if i < len(mc_letter):
+                match(mc_letter[i]):
+                    case "-":
+                        screen.blit(dash_img, pos)
+                    case ".":
+                        screen.blit(dot_img, pos)
+                    case "/":
+                        screen.blit(slash_img, pos)
+            else:
+                screen.blit(space_img, pos)
 
-    pygame.display.update()
+        pygame.display.update()
+        
+if __name__ == "__main__":
+    main()

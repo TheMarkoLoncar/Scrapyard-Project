@@ -117,24 +117,10 @@ def recieved_message_handler(s):
         play_morse_code(message)
 
 
-def main():
+def setup_recieving():
     s = socket.socket()
     s.connect(("localhost", int(input("Enter a port: "))))
 
     recieving_thread = threading.Thread(
         target=recieved_message_handler, args=(s,)
     ).start()
-
-    while True:
-        message = convert_to_morse_code(input(""))
-
-        if message:
-            try:
-                s.send(message.encode())
-            except Exception as e:
-                s.close()
-                break
-
-
-if __name__ == "__main__":
-    main()
