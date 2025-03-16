@@ -117,7 +117,8 @@ def recieved_message_handler():
 
 def setup_recieving():
     global s
-    s.connect(("localhost", 6969))
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.connect(("172.20.10.3", 6969))
 
     recieving_thread = threading.Thread(
         target=recieved_message_handler
