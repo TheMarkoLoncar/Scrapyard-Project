@@ -8,7 +8,7 @@ window.config(bg="white")
 #text header
 heading = Label(window,
                 text="Morse Code Translator lol",
-                font=("Arial", 24),
+                font=("MS Sans Serif", 20, 'bold'),
                 fg="black",
                 bg="white",
                 )
