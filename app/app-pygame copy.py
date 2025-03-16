@@ -54,12 +54,9 @@ while True:
             elif button_next.collidepoint(event.pos):
                 if letter == "-":
                     screen.blit(surf_error, (70, 300))
-                    pygame.display.update()
                 else:
                     word += letter
                     screen.blit(surf_letter_saved, (140, 300))
-                    pygame.display.update()
-
                 letter = "-"
                 surf2 = font2.render(letter, True, "black")
                 surf_word = font3.render(word, True, "black")
