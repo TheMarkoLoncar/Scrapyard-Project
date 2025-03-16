@@ -7,7 +7,6 @@ pygame.init()
 screen = pygame.display.set_mode((500, 500))
 pygame.display.set_caption("Morse Code Translator")
 
-#font, font3 = 40 | font2, font-letter-saved = 100 | fonterror/word = 70
 font1 = pygame.font.Font("./assets/PixelOperator8.ttf", 20)
 font2 = pygame.font.Font("./assets/PixelOperator8.ttf", 80)
 font3 = pygame.font.Font("./assets/PixelOperator8.ttf", 50)
@@ -17,20 +16,16 @@ padding = 10
 surf = font1.render(text, True, "black")
 word = ""
 letter = "-"
-text_letter_saved = "saved!"
-text_error = "unable to save..."
 text_word = word
 surf_word = font3.render(text_word, True, "black")
 
-button1 = pygame.Rect(150, 250, font1.size(text)[0] + padding, font1.size(text)[1] + padding)
-button_next = pygame.Rect(250, 250, font1.size("NEXT")[0] + padding, font1.size("NEXT")[1] + padding)
+button1 = pygame.Rect(150, 460, font1.size(text)[0] + padding, font1.size(text)[1] + padding)
+button_next = pygame.Rect(250, 460, font1.size("NEXT")[0] + padding, font1.size("NEXT")[1] + padding)
 
 surf2 = font1.render(letter, True, "black")
-surf_letter_saved = font2.render(text_letter_saved, True, "black")
-surf_error = font3.render(text_error, True, "black")
 surf3 = font1.render("NEXT", True, "black")
 
-background_sprite = pygame.image.load("./assets/BlankSlot.png")
+background_img = pygame.image.load("./assets/BackgroundSlotMachine.png")
 
 def draw_button(button, surf):
     pygame.draw.rect(screen, (110, 110, 110), button)
@@ -41,6 +36,8 @@ while True:
 
     screen.blit(surf_word, (30, 40))
     screen.blit(surf2, (220, 100))
+    
+    screen.blit(background_img, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,13 +49,6 @@ while True:
                 letter = random.choice(string.ascii_uppercase)
                 surf2 = font2.render(letter, True, "black")
             elif button_next.collidepoint(event.pos):
-                if letter == "-":
-                    screen.blit(surf_error, (70, 300))
-                else:
-                    word += letter
-                    screen.blit(surf_letter_saved, (140, 300))
-
-                letter = "-"
                 surf2 = font2.render(letter, True, "black")
                 surf_word = font3.render(word, True, "black")
 
