@@ -4,7 +4,7 @@ import string
 
 pygame.init()
 
-screen = pygame.display.set_mode((500, 500))
+screen = pygame.display.set_mode((500, 600))
 pygame.display.set_caption("Morse Code Translator")
 
 font1 = pygame.font.Font("./assets/PixelOperator8.ttf", 20)
@@ -19,8 +19,8 @@ letter = "-"
 text_word = word
 surf_word = font3.render(text_word, True, "black")
 
-button1 = pygame.Rect(150, 460, font1.size(text)[0] + padding, font1.size(text)[1] + padding)
-button_next = pygame.Rect(250, 460, font1.size("NEXT")[0] + padding, font1.size("NEXT")[1] + padding)
+button1 = pygame.Rect(150, 540, font1.size(text)[0] + padding, font1.size(text)[1] + padding)
+button_next = pygame.Rect(250, 540, font1.size("NEXT")[0] + padding, font1.size("NEXT")[1] + padding)
 
 surf2 = font1.render(letter, True, "black")
 surf3 = font1.render("NEXT", True, "black")
@@ -34,10 +34,10 @@ def draw_button(button, surf):
 while True:
     screen.fill((255, 255, 255))
 
-    screen.blit(surf_word, (30, 40))
-    screen.blit(surf2, (220, 100))
+    screen.blit(surf_word, (30, 140))
+    screen.blit(surf2, (220, 200))
     
-    screen.blit(background_img, (0, 0))
+    screen.blit(background_img, (0, 45))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
