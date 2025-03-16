@@ -41,7 +41,8 @@ print("socket successfully created")
 def main():
     global s
 
-    s.bind(("10.17.192.55", 6969))
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(("172.20.10.3", 6969))
 
     s.listen(5)
     print("socket is listening", s.getsockname())

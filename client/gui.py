@@ -46,6 +46,8 @@ cycle_dot_img = pygame.image.load("../assets/CycleSlotDot.png")
 cycle_space_img = pygame.image.load("../assets/CycleSlotSpace.png")
 cycle_slash_img = pygame.image.load("../assets/CycleSlotSlash.png")
 
+roll_sound = pygame.mixer.Sound("../assets/RollSound.mp3")
+
 word = ""
 surf_word = font3.render(word, True, "black")
 
@@ -77,7 +79,7 @@ def main():
         screen.fill((255, 255, 255))
     
         screen.blit(background_img, (0, 30))
-    
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -85,10 +87,15 @@ def main():
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if button_spin.collidepoint(event.pos):
+                    free_channel = pygame.mixer.find_channel()
+                    free_channel.play(roll_sound)
+                    
                     for i in range(4):
                         update_letter(random.choice(string.ascii_lowercase), True)
                         pygame.display.update()
                         time.sleep(1 / (4 - i))
+                        
+                    free_channel.stop()
 
                     letter = random.choice(string.ascii_lowercase + " ")
                 elif button_next.collidepoint(event.pos):
