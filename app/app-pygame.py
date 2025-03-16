@@ -7,30 +7,30 @@ pygame.init()
 screen = pygame.display.set_mode((500, 500))
 pygame.display.set_caption("Morse Code Translator")
 
-font = pygame.font.SysFont("MS Sans Serif", 40, bold=True)
-font2 = pygame.font.SysFont("MS Sans Serif", 100, bold=True)
-font3 = pygame.font.SysFont("MS Sans Serif", 40, bold=True)
-font_letter_saved = pygame.font.SysFont("MS Sans Serif", 100, bold=False)
-font_error = pygame.font.SysFont("MS Sans Serif", 70, bold=False)
-font_word = pygame.font.SysFont("MS Sans Serif", 70, bold=True)
+#font, font3 = 40 | font2, font-letter-saved = 100 | fonterror/word = 70
+font1 = pygame.font.Font("./assets/PixelOperator8.ttf", 20)
+font2 = pygame.font.Font("./assets/PixelOperator8.ttf", 80)
+font3 = pygame.font.Font("./assets/PixelOperator8.ttf", 50)
 
 text = "SPIN"
 padding = 10
-surf = font.render(text, True, "black")
+surf = font1.render(text, True, "black")
 word = ""
 letter = "-"
 text_letter_saved = "saved!"
 text_error = "unable to save..."
 text_word = word
-surf_word = font_word.render(text_word, True, "black")
+surf_word = font3.render(text_word, True, "black")
 
-button1 = pygame.Rect(150, 250, font.size(text)[0] + padding, font.size(text)[1] + padding)
-button_next = pygame.Rect(250, 250, font3.size("NEXT")[0] + padding, font3.size("NEXT")[1] + padding)
+button1 = pygame.Rect(150, 250, font1.size(text)[0] + padding, font1.size(text)[1] + padding)
+button_next = pygame.Rect(250, 250, font1.size("NEXT")[0] + padding, font1.size("NEXT")[1] + padding)
 
-surf2 = font2.render(letter, True, "black")
-surf_letter_saved = font_letter_saved.render(text_letter_saved, True, "black")
-surf_error = font_error.render(text_error, True, "black")
-surf3 = font3.render("NEXT", True, "black")
+surf2 = font1.render(letter, True, "black")
+surf_letter_saved = font2.render(text_letter_saved, True, "black")
+surf_error = font3.render(text_error, True, "black")
+surf3 = font1.render("NEXT", True, "black")
+
+background_sprite = pygame.image.load("./assets/BlankSlot.png")
 
 def draw_button(button, surf):
     pygame.draw.rect(screen, (110, 110, 110), button)
@@ -51,7 +51,6 @@ while True:
             if button1.collidepoint(event.pos):
                 letter = random.choice(string.ascii_uppercase)
                 surf2 = font2.render(letter, True, "black")
-
             elif button_next.collidepoint(event.pos):
                 if letter == "-":
                     screen.blit(surf_error, (70, 300))
@@ -61,7 +60,7 @@ while True:
 
                 letter = "-"
                 surf2 = font2.render(letter, True, "black")
-                surf_word = font_word.render(word, True, "black")
+                surf_word = font3.render(word, True, "black")
 
     draw_button(button1, surf)
     draw_button(button_next, surf3)
