@@ -7,7 +7,7 @@ import time
 pygame.init()
 
 screen = pygame.display.set_mode((500, 570))
-pygame.display.set_caption("Morse Code Translator")
+pygame.display.set_caption("AstleyChat")
 
 font1 = pygame.font.Font("../assets/PixelOperator8.ttf", 20)
 font2 = pygame.font.Font("../assets/PixelOperator8.ttf", 80)
